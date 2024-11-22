@@ -15,7 +15,7 @@ app.config["SESSION_TYPE"] = "filesystem"
 Session(app)
 
 # Ensure directories exist
-os.makedirs("data/cleaned_data", exist_ok=True)
+os.makedirs("data", exist_ok=True)
 os.makedirs("models", exist_ok=True)
 
 @app.route('/')

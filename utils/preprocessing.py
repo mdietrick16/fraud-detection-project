@@ -102,7 +102,7 @@ def preprocess_data(file_path, selected_features, target_column):
 
     # Save the cleaned data to a new file
     try:
-        cleaned_path = file_path.replace('.csv', '_cleaned.csv')
+        cleaned_path = os.path.join('data', 'insuranceFraud_cleaned.csv')
         data_processed_df.to_csv(cleaned_path, index=False)
     except Exception as e:
         raise IOError(f"Error saving cleaned data to file: {cleaned_path}. Exception: {e}")
