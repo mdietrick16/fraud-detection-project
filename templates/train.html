@@ -1,0 +1,16 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Train Model</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <h1>Train Model</h1>
+    <p>Click the button below to start training the model using the uploaded and preprocessed data.</p>
+    <form action="{{ url_for('train') }}" method="post">
+        <button type="submit">Start Training</button>
+    </form>
+</body>
+</html>
