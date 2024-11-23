@@ -2,7 +2,10 @@
 ```markdown
 # Fraud Detection Project
 
-Welcome to the **Fraud Detection Project**! This is a Flask-based web application designed to help you upload data, preprocess it, train a model, and make predictions for fraud detection specifically for auto insurance fraud detection using insuranceFraud.csv from kaggle.  It's a beginner-friendly tool for exploring machine learning workflows.
+Welcome to the **Fraud Detection Project**! This is a Flask-based web application designed to 
+help you upload data, preprocess it, train a model, and make predictions for fraud detection 
+specifically for auto insurance fraud detection using insuranceFraud.csv from kaggle.  
+It's a beginner-friendly tool for exploring machine learning workflows.
 
 ---
 
