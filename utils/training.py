@@ -7,6 +7,10 @@ from sklearn.metrics import classification_report
 from imblearn.over_sampling import SMOTE
 from sklearn.linear_model import LogisticRegression
 from sklearn.neighbors import KNeighborsClassifier
+import numpy as np
+import matplotlib
+import matplotlib.pyplot as plt
+from sklearn.decomposition import PCA # done towards the end to show only two features in graphs
 
 def load_data(file_path):
     """
@@ -165,6 +169,56 @@ def save_model(model, model_path):
             pickle.dump(model, f)
     except Exception as e:
         raise IOError(f"Error saving model to file: {model_path}. Exception: {e}")
+    
+def present_models(X_train, y_train, X):
+    '''
+    To better present, add plots to show KNN and GradientBoosting and compare with them stacked.
+    Parameters:
+         X_train, y_train that have been split
+         X from dataset
+    Returns:
+         No returns but png files are created for graphs.
+    '''
+    #define and train the classifiers
+    gb_classifier = GradientBoostingClassifier()
+    knn_classifier = KNeighborsClassifier()
+    stacking_classifier = StackingClassifier(estimators=[
+        ('gb', gb_classifier),
+        ('knn', knn_classifier)],
+        final_estimator=LogisticRegression()
+    )
+    # We used 15 features and should reduce it down to two, so for the graph PCA to reduce it to 2
+    pca = PCA(n_components=2) #Principal Component Analysis retaining variance while reducing dimensionality
+                               # This will allow us to visualize the first two principal components.
+    X_train_pca = pca.fit_transform(X_train)
+
+    gb_classifier.fit(X_train_pca, y_train)
+    knn_classifier.fit(X_train_pca, y_train)
+    stacking_classifier.fit(X_train_pca, y_train)
+
+    #create a mesh grid for plotting decision boundaries
+    x_min, x_max = X_train_pca[:, 0].min() - 1, X_train_pca[:, 0].max() + 1
+    y_min, y_max = X_train_pca[:, 1].min() - 1, X_train_pca[:, 1].max() + 1
+    xx, yy = np.meshgrid(np.linspace(x_min, x_max, 100), np.linspace(y_min, y_max, 100))
+  
+    #get predictions for the mesh grid
+    gb_predictions = gb_classifier.predict(np.c_[xx.ravel(), yy.ravel()]).reshape(xx.shape)
+    knn_predictions = knn_classifier.predict(np.c_[xx.ravel(), yy.ravel()]).reshape(xx.shape)
+    stacking_predictions = stacking_classifier.predict(np.c_[xx.ravel(), yy.ravel()]).reshape(xx.shape)
+    
+    plot_classifier("Gradient Boosting Classifier", gb_predictions, X_train_pca, y_train,xx,yy)
+    plot_classifier("K-Nearest Neighbors Classifier", knn_predictions, X_train_pca, y_train,xx,yy)
+    plot_classifier("Stacking Classifier", stacking_predictions, X_train_pca, y_train,xx,yy)
+
+def plot_classifier(classifier_name, predictions, X_train, y_train,xx,yy):
+    plt.figure(figsize=(8,6))
+    plt.contour(xx, yy, predictions, alpha=0.5, cmap='coolwarm')
+    plt.scatter(X_train[:,0], X_train[:,1], c=y_train, edgecolors='k', marker='o')
+    plt.xlabel('Principal Component 1')
+    plt.ylabel('Principal Component 2')
+    plt.title(classifier_name)
+    plt.savefig(f'{classifier_name.replace(" ", "_").lower()}_decision_boundary.png', dpi=300)
+    plt.close()
 
 def train_model_pipeline(cleaned_path, target_column):
     """
@@ -186,6 +240,9 @@ def train_model_pipeline(cleaned_path, target_column):
         model = train_model(X_train, y_train, base_models, meta_learner)
         metrics = evaluate_model(model, X_test, y_test)
         model_path = os.path.join('models', 'trained_model.pkl')
+        #added to show graphs for each classifier
+        matplotlib.use("Agg")  # Use the Agg backend for saving plots
+        present_models(X_train, y_train, X)
         save_model(model, model_path)
     except Exception as e:
         raise RuntimeError(f"Error in training pipeline: {e}")
