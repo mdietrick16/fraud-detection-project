@@ -56,7 +56,7 @@ pip install -r requirements.txt
 Clone the repository or download the files to your local machine.
 
 ```bash
-git clone git@github.com:Elmessaoudih/Fraud-Detection-Project.git
+git clone git@github.com:mdietrick16/Fraud-Detection-Project.git
 cd fraud_detection_project
 ```
 
