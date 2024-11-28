@@ -12,7 +12,7 @@ It's a beginner-friendly tool for exploring machine learning workflows.
 ## Features
 
 1. **Upload Raw Data**: 
-   - Upload your dataset, and the application will preprocess it for you (insurance.csv).
+   - Upload your dataset, and the application will preprocess it for you (insuranceFraud.csv).
    - Preprocessing includes handling missing values and encoding categorical data.
 
 2. **Train a Model**:
@@ -115,14 +115,13 @@ The application will run on `http://127.0.0.1:5000`.
    - If you encounter any issues (e.g., file not uploading or prediction errors), check the Flask terminal output for error messages.
 
 4. **Flexibility**:
-   - This project uses both the GradiantBoostingClassifier in combination of K nearest neighbor, but you can modify the `training.py` file to experiment with other models.
+   - This project uses a stacking ensemble with GradientBoostingClassifier and K-Nearest Neighbor as the base models, and logistic regression as the meta-learner, but you can modify the `training.py` file to experiment with other models.
 
 ---
 
 ## Future Improvements
 
 - Add data visualization features.
-- Provide downloadable results for predictions.
 - Include model comparison for different algorithms.
 
 ---
