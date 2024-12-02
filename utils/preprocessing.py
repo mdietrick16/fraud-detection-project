@@ -11,12 +11,15 @@ import numpy as np
 numerical_features = [
     'vehicle_claim', 'total_claim_amount', 'property_claim', 
     'injury_claim', 'months_as_customer', 'witnesses', 
-    'age', 'incident_hour_of_the_day'
+    'age', 'incident_hour_of_the_day', 'number_of_vehicles_involved',
+    'policy_deductable', 'capital-gains', 'capital-loss', 'bodily_injuries'
 ]
 
 categorical_features = [
     'incident_severity', 'policy_csl', 'collision_type', 
-    'incident_state', 'incident_city', 'incident_type', 'insured_occupation'
+    'incident_state', 'incident_city', 'incident_type', 'insured_occupation',
+    'insured_sex', 'property_damage', 'police_report_available',
+    'insured_relationship', 'authorities_contacted'
 ]
 
 # Create a pipeline for numerical features (imputation and scaling)

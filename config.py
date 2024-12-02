@@ -14,7 +14,17 @@ SELECTED_FEATURES = [
     'incident_state',  # State where the incident occurred
     'incident_city',  # City where the incident occurred
     'incident_type',  # Type of incident
-    'insured_occupation'  # Occupation of the insured individual
+    'insured_occupation',  # Occupation of the insured individual
+    'number_of_vehicles_involved',  # Number of vehicles involved in the incident
+    'policy_deductable',  # Policy deductible
+    'capital-gains',  # Capital gains
+    'capital-loss',  # Capital losses
+    'bodily_injuries',  # Number of bodily injuries
+    'insured_sex',  #sex of the insured individual
+    'property_damage', # Whether property damage occurred
+    'police_report_available', # Whether a police report is available
+    'insured_relationship', # Relationship of the insured individual
+    'authorities_contacted' # Authorities contacted after the incident
 ]
 
 # Define the target column for prediction
